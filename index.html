@@ -8,5 +8,19 @@
 <body>
     <canvas id="myCanvas" width="600" height="400" style="border:2px solid"></canvas>
     <script src ="script.js"></script>
+    <h2>Algoritmo Cohen-Sutherland</h2>
+
+    <h3>Ingresar puntos</h3>
+    P1: <input id="x1"> <input id="y1"><br>
+    P2: <input id="x2"> <input id="y2"><br>
+
+    <h3>Viewport</h3>
+    xmin: <input id="xminInput" value="100">
+    ymin: <input id="yminInput" value="100"><br>
+    xmax: <input id="xmaxInput" value="500">
+    ymax: <input id="ymaxInput" value="300"><br>
+
+<button onclick="dibujarDesdeInputs()">Dibujar</button>
+<button onclick="limpiarCanvas()">Limpiar</button>
 </body>
 </html>
