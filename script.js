@@ -112,19 +112,22 @@ function cohenSutherland(p1, p2) {
 }
 function dibujarDesdeInputs(){
 
-    const x1 = document.getElementById("x1").value;
-    const y1 = document.getElementById("y1").value;
-    const x2 = document.getElementById("x2").value;
-    const y2 = document.getElementById("y2").value;
+    const x1 = parseFloat(document.getElementById("x1").value);
+    const y1 = parseFloat(document.getElementById("y1").value);
+    const x2 = parseFloat(document.getElementById("x2").value);
+    const y2 = parseFloat(document.getElementById("y2").value);
 
-    xmin = document.getElementById("xminInput").value;
-    ymin = document.getElementById("yminInput").value;
-    xmax = document.getElementById("xmaxInput").value;
-    ymax = document.getElementById("ymaxInput").value;
+    xmin = parseFloat(document.getElementById("xminInput").value);
+    ymin = parseFloat(document.getElementById("yminInput").value);
+    xmax = parseFloat(document.getElementById("xmaxInput").value);
+    ymax = parseFloat(document.getElementById("ymaxInput").value);
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     dibujarViewport();
+
+    dibujarPunto(x1,y1);
+    dibujarPunto(x2,y2);
 
     dibujarLinea({x:x1,y:y1},{x:x2,y:y2});
 }
