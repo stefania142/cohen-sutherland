@@ -4,8 +4,8 @@ const ctx = canvas.getContext("2d");
 let puntos = [];
 
 // viewport
-const xmin = 100, ymin = 100;
-const xmax = 500, ymax = 300;
+let xmin = 100, ymin = 100;
+let xmax = 500, ymax = 300;
 
 canvas.addEventListener("click", (e) => {
     const x = e.offsetX;
