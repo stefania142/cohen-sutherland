@@ -1,4 +1,4 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 let puntos = [];
@@ -39,22 +39,34 @@ function dibujarPunto(x, y) {
     ctx.arc(x, y, 5, 0, Math.PI * 2);
     ctx.fill();
 
+    ctx.fillStyle = "black";
     ctx.fillText(`(${x},${y})`, x + 5, y - 5);
 }
 
 function dibujarLinea(p1, p2) {
+    // Línea original
     ctx.strokeStyle = "red";
     ctx.beginPath();
     ctx.moveTo(p1.x, p1.y);
     ctx.lineTo(p2.x, p2.y);
     ctx.stroke();
+
+    //recorte
+    const recorte=cohenSutherland(p1, p2);
+    if (recorte) {
+        ctx.strokeStyle = "green";
+        ctx.beginPath();
+        ctx.moveTo(recorte.x1, recorte.y1);
+        ctx.lineTo(recorte.x2, recorte.y2);
+        ctx.stroke();
+    }   
 }
 function getCode(x, y) {
     let code = 0;
     if (x < xmin) code |= 1; // izquierda
     if (x > xmax) code |= 2; // derecha
-    if (y < ymin) code |= 4; // arriba
-    if (y > ymax) code |= 8; // abajo
+    if (y < ymin) code |= 4; // abajo
+    if (y > ymax) code |= 8; // arriba
     return code;
 }   
 function cohenSutherland(p1, p2) {
@@ -64,7 +76,7 @@ function cohenSutherland(p1, p2) {
     let code2 = getCode(x2, y2);
 
     while (true) {
-        if ((code1 & code2) === 0){
+        if ((code1 | code2) === 0){
             return { x1, y1, x2, y2 }; // ambos puntos dentro
         } 
         else if (code1 & code2) {
@@ -73,10 +85,10 @@ function cohenSutherland(p1, p2) {
         let codeOut = code1 !== 0 ? code1 : code2;
         let x, y;
 
-        if (codeOut & 8) { // abajo
+        if (codeOut & 8) { // arriba
             x = x1 + (x2 - x1) * (ymax - y1) / (y2 - y1);
             y = ymax;
-        } else if (codeOut & 4) { // arriba
+        } else if (codeOut & 4) { // abajo
             x = x1 + (x2 - x1) * (ymin - y1) / (y2 - y1);
             y = ymin;
         } else if (codeOut & 2) { // derecha
